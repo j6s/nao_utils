@@ -36,9 +36,9 @@ public class WalkUtil extends PostureUtil {
      * @throws InterruptedException
      * @throws CallError
      */
-    public void turnRight(int degree) throws InterruptedException, CallError {
-        float rad = (float)(degree * (Math.PI / 180));
-        this.motion.moveToward(0f, 0f, rad);
+    public void turnLeft(int degree) throws InterruptedException, CallError {
+        float rad = MathUtil.deg2rad(degree);
+        this.motion.moveTo(0f, 0f, rad);
     }
 
     /**
@@ -47,8 +47,8 @@ public class WalkUtil extends PostureUtil {
      * @throws CallError
      * @throws InterruptedException
      */
-    public void turnLeft(int degree) throws CallError, InterruptedException {
-        this.turnRight(-1 * degree);
+    public void turnRight(int degree) throws CallError, InterruptedException {
+        this.turnLeft(-1 * degree);
     }
 
     /**
