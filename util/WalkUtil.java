@@ -58,7 +58,7 @@ public class WalkUtil extends PostureUtil {
      * @throws CallError
      */
     public void walk(float meter) throws InterruptedException, CallError {
-        this.motion.moveToward(meter, 0f, 0f);
+        this.motion.moveTo(meter, 0f, 0f);
     }
 
 }
