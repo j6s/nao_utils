@@ -13,5 +13,14 @@ public class MathUtil {
     public static float deg2rad(float deg) {
         return (float)(deg * (Math.PI / 180));
     }
+    
+    /**
+     * Converts a radian value to degrees
+     * @param rad
+     * @return 
+     */
+    public static float rad2deg(float rad) {
+        return (float)(rad * 180 / Math.PI);
+    }
 
 }
