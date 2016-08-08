@@ -36,11 +36,11 @@ public class SpeechUtil {
         this.speech = new ALSpeechRecognition(session);
         this.memory = new ALMemory(session);
 
-        for(String a : this.speech.getAvailableLanguages()) {
-            if(a.equals("English")) {
+        for(String language : this.speech.getAvailableLanguages()) {
+            if(language.equals("English")) {
                 this.mapping.put(Language.ENGLISH, "English");
             }
-            if(a.equals("English")) {
+            if(language.equals("German")) {
                 this.mapping.put(Language.GERMAN, "German");
             }
         }
