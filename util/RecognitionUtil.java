@@ -5,16 +5,14 @@
 package de.dhbw.wwi13b.shared.util;
 
 import com.aldebaran.qi.Session;
-import com.aldebaran.qi.helper.ALProxy;
 import com.aldebaran.qi.helper.proxies.ALMemory;
 import com.aldebaran.qi.helper.proxies.ALTextToSpeech;
 import com.aldebaran.qi.helper.proxies.ALVisionRecognition;
-import com.sun.prism.image.Coords;
 
-import java.lang.reflect.Array;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
