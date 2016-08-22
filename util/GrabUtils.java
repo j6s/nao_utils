@@ -48,7 +48,18 @@ public class GrabUtils {
         /**
          * Grab
          */
-        motion.setAngles("RShoulderRoll",MathUtil.deg2rad(20f),0.4f);
-        motion.setAngles("LShoulderRoll",MathUtil.deg2rad(-20f),0.4f);
+        motion.setAngles("RShoulderRoll",MathUtil.deg2rad(30f),0.4f);
+        motion.setAngles("LShoulderRoll",MathUtil.deg2rad(-30f),0.4f);
     }
+
+    public void liftObject() throws Exception{
+        /**
+         * lift grabed Object
+         */
+        motion.setAngles("RShoulderPitch",MathUtil.deg2rad(-20f),0.4f);
+        motion.setAngles("LShoulderPitch",MathUtil.deg2rad(-20f),0.4f);
+
+
+    }
+
 }

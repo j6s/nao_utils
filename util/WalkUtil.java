@@ -61,4 +61,14 @@ public class WalkUtil extends PostureUtil {
         this.motion.moveTo(meter, 0f, 0f);
     }
 
+    /**
+     * enabled or disabled Arm movement by walk
+     * @param leftArm, rightArm
+     * @throws InterruptedException
+     * @throws CallError
+     */
+    public void setMoveArmsEnabled(boolean leftArm, boolean rightArm) throws InterruptedException,CallError {
+        this.motion.setMoveArmsEnabled(leftArm, rightArm);
+    }
+
 }
