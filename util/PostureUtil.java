@@ -98,6 +98,7 @@ public class PostureUtil {
      */
     public void goToPostureRaw(String posture) throws InterruptedException, CallError {
         this.log("going to posture " + posture);
+        this.posture.stopMove();
         this.posture.goToPosture(posture, 1f);
     }
 
@@ -109,6 +110,31 @@ public class PostureUtil {
      */
     public void posture(Posture posture) throws CallError, InterruptedException {
         this.goToPostureRaw(this.mapping.get(posture));
+    }
+
+    /**
+     * Rests the POS robot
+     * @throws InterruptedException
+     * @throws CallError
+     */
+    public void rest() throws InterruptedException, CallError {
+        this.motion.rest();
+    }
+
+    /**
+     * Gets the current posture
+     * @return
+     * @throws InterruptedException
+     * @throws CallError
+     */
+    public Posture currentPosture() throws InterruptedException, CallError {
+        String posture = this.posture.getPosture();
+        for (Posture p : this.mapping.keySet()) {
+            if (this.mapping.get(p).equals(posture)) {
+                return p;
+            }
+        }
+        return null;
     }
 
 }
