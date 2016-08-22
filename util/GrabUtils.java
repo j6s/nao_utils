@@ -44,7 +44,7 @@ public class GrabUtils {
         motion.setAngles("RHand",MathUtil.deg2rad(100f),0.4f);
     }
 
-    public void grab() throws Exception {
+    public void grabObject() throws Exception {
         /**
          * Grab
          */
@@ -52,14 +52,26 @@ public class GrabUtils {
         motion.setAngles("LShoulderRoll",MathUtil.deg2rad(-30f),0.4f);
     }
 
+    public void dropObject() throws Exception {
+        /**
+         * Grab
+         */
+        motion.setAngles("RShoulderRoll",MathUtil.deg2rad(0f),0.4f);
+        motion.setAngles("LShoulderRoll",MathUtil.deg2rad(0f),0.4f);
+    }
     public void liftObject() throws Exception{
         /**
          * lift grabed Object
          */
         motion.setAngles("RShoulderPitch",MathUtil.deg2rad(-20f),0.4f);
         motion.setAngles("LShoulderPitch",MathUtil.deg2rad(-20f),0.4f);
-
-
     }
 
+    public void lowerObject() throws Exception{
+        /**
+         * lift grabed Object
+         */
+        motion.setAngles("RShoulderPitch",MathUtil.deg2rad(0f),0.4f);
+        motion.setAngles("LShoulderPitch",MathUtil.deg2rad(0f),0.4f);
+    }
 }
