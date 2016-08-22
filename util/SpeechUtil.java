@@ -35,8 +35,15 @@ public class SpeechUtil {
     public SpeechUtil(Session session) throws Exception {
         this.speech = new ALSpeechRecognition(session);
         this.memory = new ALMemory(session);
-        this.mapping.put(Language.ENGLISH, "English");
-        this.mapping.put(Language.GERMAN, "German");
+
+        for(String language : this.speech.getAvailableLanguages()) {
+            if(language.equals("English")) {
+                this.mapping.put(Language.ENGLISH, "English");
+            }
+            if(language.equals("German")) {
+                this.mapping.put(Language.GERMAN, "German");
+            }
+        }
     }
 
     /**
