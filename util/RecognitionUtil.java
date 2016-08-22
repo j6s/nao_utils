@@ -1,3 +1,7 @@
+/**
+ * Created by huck on 17.08.16.
+ * Recognition for Landmarks
+ */
 package de.dhbw.wwi13b.shared.util;
 
 import com.aldebaran.qi.Session;
@@ -14,9 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-/**
- * Created by huck on 17.08.16.
- */
+
 public class RecognitionUtil {
 
     /**
@@ -45,8 +47,8 @@ public class RecognitionUtil {
 
     }
 
-
-    public Thread onRecognize(Function<LMCoords, Void> callback) {
+    //runs until Landmark is detected, passes ID and Coords via LMCoords via callback
+    public Thread onRecognizeLandmark(Function<LMCoords, Void> callback) {
         Thread thread = new Thread(() -> {
             try {
                 System.out.println("IN REC");

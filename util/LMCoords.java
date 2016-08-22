@@ -1,10 +1,12 @@
+/**
+ * Created by huck on 22.08.16.
+ * contains coordinates and id of a landmark
+ */
 package de.dhbw.wwi13b.shared.util;
 
 import java.util.ArrayList;
 
-/**
- * Created by huck on 22.08.16.
- */
+
 public class LMCoords {
     float alpha,beta,sizeX,sizeY,heading;
     int landmarkID;
