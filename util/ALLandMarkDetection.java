@@ -14,6 +14,7 @@ import java.util.List;
 public class ALLandMarkDetection extends ALProxy {
     private ALLandMarkDetection.AsyncALLandmarkDetection asyncProxy = new ALLandMarkDetection.AsyncALLandmarkDetection();
 
+
     public ALLandMarkDetection(Session session) throws Exception {
         super(session);
         System.out.print("LMD has name"+super.getService());
