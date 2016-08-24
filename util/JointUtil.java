@@ -26,9 +26,32 @@ public class JointUtil {
 
     public JointUtil(Session session) throws Exception {
         this.motion = new ALMotion(session);
-
-        this.mapping.put(Joint.HEADJAW, "HeadYaw");
+        this.mapping.put(Joint.HEADYAW, "HeadYaw");
         this.mapping.put(Joint.HEADPITCH, "HeadPitch");
+        this.mapping.put(Joint.LSHOULDERPITCH, "LShoulderPitch");
+        this.mapping.put(Joint.LSHOULDERROLL, "LShoulderRoll");
+        this.mapping.put(Joint.LELBOWYAW, "LElbowYaw");
+        this.mapping.put(Joint.LELBOWROLL, "LElbowRoll");
+        this.mapping.put(Joint.LWRISTYAW, "LWristYaw");
+        this.mapping.put(Joint.LHAND, "LHand");
+        this.mapping.put(Joint.LHIPYAWPITCH, "LHipYawPitch");
+        this.mapping.put(Joint.LHIPROLL, "LHipRoll");
+        this.mapping.put(Joint.LHIPPITCH, "LHipPitch");
+        this.mapping.put(Joint.LKNEEPITCH, "LKneePitch");
+        this.mapping.put(Joint.LANKLEPITCH, "LAnklePitch");
+        this.mapping.put(Joint.LANKLEROLL, "LAnkleRoll");
+        this.mapping.put(Joint.RHIPYAWPITCH, "RHipYawPitch");
+        this.mapping.put(Joint.RHIPROLL, "RHipRoll");
+        this.mapping.put(Joint.RHIPPITCH, "RHipPitch");
+        this.mapping.put(Joint.RKNEEPITCH, "RKneePitch");
+        this.mapping.put(Joint.RANKLEPITCH, "RAnklePitch");
+        this.mapping.put(Joint.RANKLEROLL, "RAnkleRoll");
+        this.mapping.put(Joint.RSHOULDERPITCH, "RShoulderPitch");
+        this.mapping.put(Joint.RSHOULDERROLL, "RShoulderRoll");
+        this.mapping.put(Joint.RELBOWYAW, "RElbowYaw");
+        this.mapping.put(Joint.RELBOWROLL, "RElbowRoll");
+        this.mapping.put(Joint.RWRISTYAW, "RWristYaw");
+        this.mapping.put(Joint.RHAND, "RHand");
     }
 
     /**
@@ -51,7 +74,7 @@ public class JointUtil {
      * @throws InterruptedException
      */
     public void setAngle(Joint joint, int angle) throws CallError, InterruptedException {
-        this.setAngle(joint, angle, .2f);
+        this.setAngle(joint, angle, .4f);
     }
 
     /**
