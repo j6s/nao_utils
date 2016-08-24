@@ -11,67 +11,67 @@ public class GrabUtils {
     /**
      * ALMotion service instance
      */
-    protected ALMotion motion;
+    protected JointUtil motion;
 
-    public GrabUtils(Session session) throws Exception{
-        this.motion = new ALMotion(session);
-
+    public GrabUtils(Session session) throws Exception {
+        this.motion = new JointUtil(session);
     }
 
     public void liftArms() throws Exception {
         /**
          * Left Arm
          */
-        motion.setAngles("LShoulderPitch",MathUtil.deg2rad(0f),0.4f);
-        motion.setAngles("LShoulderRoll",MathUtil.deg2rad(0f),0.4f);
-        motion.setAngles("LElbowYaw",MathUtil.deg2rad(-90f),0.4f);
-        motion.setAngles("LElbowRoll",MathUtil.deg2rad(-20f),0.4f);
+        motion.setAngle(Joint.LSHOULDERPITCH, 0);
+        motion.setAngle(Joint.LSHOULDERROLL, 0);
+        motion.setAngle(Joint.LELBOWYAW, -90);
+        motion.setAngle(Joint.LELBOWROLL, -20);
 
         /**
          * Right Arm
          */
-        motion.setAngles("RShoulderPitch",MathUtil.deg2rad(0f),0.4f);
-        motion.setAngles("RShoulderRoll",MathUtil.deg2rad(0f),0.4f);
-        motion.setAngles("RElbowYaw",MathUtil.deg2rad(90f),0.4f);
-        motion.setAngles("RElbowRoll",MathUtil.deg2rad(20f),0.4f);
+        motion.setAngle(Joint.RSHOULDERPITCH, 0);
+        motion.setAngle(Joint.RSHOULDERROLL, 0);
+        motion.setAngle(Joint.RELBOWYAW, 90);
+        motion.setAngle(Joint.RELBOWROLL, 20);
     }
 
     public void openHands() throws Exception {
         /**
         * Openhands
         */
-        motion.setAngles("LHand",MathUtil.deg2rad(100f),0.4f);
-        motion.setAngles("RHand",MathUtil.deg2rad(100f),0.4f);
+        motion.setAngle(Joint.LHAND, 100);
+        motion.setAngle(Joint.RHAND, 100);
     }
 
     public void grabObject() throws Exception {
         /**
          * Grab
          */
-        motion.setAngles("RShoulderRoll",MathUtil.deg2rad(30f),0.4f);
-        motion.setAngles("LShoulderRoll",MathUtil.deg2rad(-30f),0.4f);
+        motion.setAngle(Joint.RSHOULDERROLL, 30);
+        motion.setAngle(Joint.LSHOULDERROLL, -30);
     }
 
     public void dropObject() throws Exception {
         /**
-         * Grab
+         * dropObject
          */
-        motion.setAngles("RShoulderRoll",MathUtil.deg2rad(0f),0.4f);
-        motion.setAngles("LShoulderRoll",MathUtil.deg2rad(0f),0.4f);
+        motion.setAngle(Joint.RSHOULDERROLL, 0);
+        motion.setAngle(Joint.LSHOULDERROLL, 0);
     }
+
     public void liftObject() throws Exception{
         /**
          * lift grabed Object
          */
-        motion.setAngles("RShoulderPitch",MathUtil.deg2rad(-20f),0.4f);
-        motion.setAngles("LShoulderPitch",MathUtil.deg2rad(-20f),0.4f);
+        motion.setAngle(Joint.RSHOULDERPITCH, -20);
+        motion.setAngle(Joint.LSHOULDERPITCH, -20);
     }
 
     public void lowerObject() throws Exception{
         /**
          * lift grabed Object
          */
-        motion.setAngles("RShoulderPitch",MathUtil.deg2rad(0f),0.4f);
-        motion.setAngles("LShoulderPitch",MathUtil.deg2rad(0f),0.4f);
+        motion.setAngle(Joint.RSHOULDERPITCH, 0);
+        motion.setAngle(Joint.LSHOULDERPITCH, 0);
     }
 }
