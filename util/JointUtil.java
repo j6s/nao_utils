@@ -3,6 +3,8 @@ package de.dhbw.wwi13b.shared.util;
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
 import com.aldebaran.qi.helper.proxies.ALMotion;
+import de.dhbw.wwi13b.shared.util.thread.Runnable;
+import de.dhbw.wwi13b.shared.util.thread.Thread;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +20,8 @@ public class JointUtil {
      */
     private ALMotion motion;
 
+    private WalkUtil walk;
+
     /**
      * Map from the Joint enum to the Magic strings
      */
@@ -25,6 +29,7 @@ public class JointUtil {
 
 
     public JointUtil(Session session) throws Exception {
+        this.walk = new WalkUtil(session);
         this.motion = new ALMotion(session);
 
         this.mapping.put(Joint.HEADJAW, "HeadYaw");
@@ -39,7 +44,7 @@ public class JointUtil {
     public void init() throws InterruptedException, CallError {
         for(Joint joint : this.mapping.keySet()) {
             this.motion.setStiffnesses(this.mapping.get(joint), 1f);
-            this.setAngle(joint, 0);
+            this.motion.angleInterpolation(this.mapping.get(joint), 0, .4f, true);
         }
     }
 
@@ -99,7 +104,7 @@ public class JointUtil {
      * @throws InterruptedException
      */
     public void changeAngleSync(Joint joint, int angle) throws CallError, InterruptedException {
-        this.changeAngleSync(joint, angle, 2f);
+        this.changeAngleSync(joint, angle, .2f);
     }
 
     /**
@@ -113,7 +118,13 @@ public class JointUtil {
      * @throws CallError
      */
     public void changeAngleSync(Joint joint, int angle, float speed) throws InterruptedException, CallError {
+        speed = 2 / speed;
         this.motion.angleInterpolation(this.mapping.get(joint), Math.toRadians(angle), speed, false);
+    }
+
+
+    public void stopMoving() throws InterruptedException, CallError {
+        this.motion.stopMove();
     }
 
 }
