@@ -3,6 +3,8 @@ package de.dhbw.wwi13b.shared.util;
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
 import com.aldebaran.qi.helper.proxies.ALMotion;
+import de.dhbw.wwi13b.shared.util.thread.Runnable;
+import de.dhbw.wwi13b.shared.util.thread.Thread;
 
 /**
  * Simple abstraction over walking and walking related tasks.
@@ -69,6 +71,38 @@ public class WalkUtil extends PostureUtil {
      */
     public void setMoveArmsEnabled(boolean leftArm, boolean rightArm) throws InterruptedException,CallError {
         this.motion.setMoveArmsEnabled(leftArm, rightArm);
+    }
+
+    public Thread scan() {
+        final boolean[] scan = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int increment = 20;
+
+                while (scan[0]) {
+                    try {
+                        turnRight(increment);
+                        Thread.sleep(500);
+                    } catch (CallError callError) {
+                        callError.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onInterrupt() throws CallError, InterruptedException {
+                scan[0] = false;
+                motion.stopMove();
+                motion.stopWalk();
+            }
+        });
+
+        thread.start();
+        return thread;
     }
 
 }
