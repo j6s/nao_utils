@@ -26,6 +26,18 @@ public class SonarUtil {
         return sonar.getFilteredValues();
     }
 
+    public float getFilteredValuesMean() throws Exception {
+        List<Float> values = this.getFilterdValues();
+        float total = 0;
+        for (float val : values) {
+            total += val;
+        }
+
+        System.out.println(total/values.size());
+
+        return total / values.size();
+    }
+
 
 
 }
