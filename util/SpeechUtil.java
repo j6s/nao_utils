@@ -12,7 +12,17 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * Created by j on 7/27/16.
+ * SpeechUtil:
+ * Abstraction over ALSpeechRecognition for recognizing
+ * words and reacting to those.
+ * This abstraction does not use magic strings for the languages
+ * and provides an easy lambda interface for listening for strings.
+ *
+ * For another layer of abstraction over Speech Recognition have a
+ * look at the SpeechRecognitionRouter
+ *
+ * @see de.dhbw.wwi13b.shared.util.router.SpeechRecognitionRouter
+ * @author Johannes Hertenstein
  */
 public class SpeechUtil {
 

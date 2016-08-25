@@ -1,7 +1,11 @@
 package de.dhbw.wwi13b.shared.util;
 
 /**
- * Created by j on 7/27/16.
+ * Enum that indicates the language for usage with the
+ * SpeechUtil.
+ *
+ * @see SpeechUtil
+ * @author Johannes Hertenstein
  */
 public enum Language {
     GERMAN, ENGLISH
