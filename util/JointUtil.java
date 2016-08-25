@@ -11,15 +11,25 @@ import java.util.Map;
 
 
 /**
- * Utility to move single joints
+ * Utility to move single joints.
+ * This is a abstraction over AlMotion.setAngle and ALMotion.changeAngle
+ * without Magic strings.
+ *
+ * This Util depends on the WalkUtil and ALMotion being present
+ *
+ * @link http://deviq.com/magic-strings/
+ * @author Johannes Hertenstein
  */
 public class JointUtil {
 
     /**
-     * The ALMotion
+     * The ALMotion instance that is being used
      */
     private ALMotion motion;
 
+    /**
+     * The WalkUtil Instance that is being used
+     */
     private WalkUtil walk;
 
     /**
@@ -27,7 +37,14 @@ public class JointUtil {
      */
     private Map<Joint, String> mapping = new HashMap<>();
 
-
+    /**
+     * Constructor:
+     * Handles the mapping of the Joint enum to the Magic Strings
+     *
+     * @param session
+     * @throws Exception
+     * @todo catch exception
+     */
     public JointUtil(Session session) throws Exception {
         this.walk = new WalkUtil(session);
         this.motion = new ALMotion(session);

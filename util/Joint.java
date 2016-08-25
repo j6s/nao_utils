@@ -1,10 +1,13 @@
 package de.dhbw.wwi13b.shared.util;
 
 /**
- * Created by j on 8/22/16.
+ * All available Joints for usage with the JointUtil.
+ * Use this enum together with the JointUtil
+ *
+ * @see JointUtil
+ * @author Johannes Hertenstein
  */
 public enum Joint {
-    HEADJAW,
     HEADPITCH,
     LSHOULDERPITCH,
     HEADYAW,
