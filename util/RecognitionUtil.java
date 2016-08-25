@@ -74,7 +74,7 @@ public class RecognitionUtil {
                      System.out.println("no landmark");
                     }
                 });
-//to keep thread alife
+                //to keep thread alife
                 //Thread.sleep(15 * 1000);
             } catch (Exception e) {
                 e.printStackTrace();

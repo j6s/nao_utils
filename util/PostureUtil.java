@@ -11,7 +11,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by j on 7/27/16.
+ * Abstraction over AlMotion and AlRobotPosture that handles the
+ * robot going into different postures.
+ * This implementation does not rely on Magic Strings and uses
+ * the {@link Posture} enum instead.
+ * The {@link WalkUtil} extends this class and thus contains all of the
+ * same functionality
+ *
+ * @author Johannes Hertenstein
+ * @see Posture
+ * @see WalkUtil
  */
 public class PostureUtil {
 

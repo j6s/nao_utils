@@ -8,6 +8,10 @@ import de.dhbw.wwi13b.shared.util.thread.Thread;
 
 /**
  * Simple abstraction over walking and walking related tasks.
+ * Provides an easy interface for walking related tasks that is
+ * based on degree instead of radian values.
+ *
+ * @author Johannes Hertenstein
  */
 public class WalkUtil extends PostureUtil {
 
@@ -24,6 +28,7 @@ public class WalkUtil extends PostureUtil {
     /**
      * Initializes the walking behaviour. Applies the correct settings
      * for the robot to start walking.
+     *
      * @throws CallError
      * @throws InterruptedException
      */
@@ -34,7 +39,8 @@ public class WalkUtil extends PostureUtil {
 
     /**
      * Turns right (Clockwise) by x degrees
-     * @param degree
+     *
+     * @param degree    Angle to turn by in degrees
      * @throws InterruptedException
      * @throws CallError
      */
@@ -45,7 +51,7 @@ public class WalkUtil extends PostureUtil {
 
     /**
      * Turns left (Counterclockwise) by x degrees
-     * @param degree
+     * @param degree    Anple to turn by in degrees
      * @throws CallError
      * @throws InterruptedException
      */
@@ -55,6 +61,7 @@ public class WalkUtil extends PostureUtil {
 
     /**
      * Walks x meters forward.
+     *
      * @param meter
      * @throws InterruptedException
      * @throws CallError
@@ -73,6 +80,13 @@ public class WalkUtil extends PostureUtil {
         this.motion.setMoveArmsEnabled(leftArm, rightArm);
     }
 
+    /**
+     * Continuously turns in 20 degree increments and waits for a short while.
+     * Use when searching for items.
+     *
+     * call Thread.interrupt on the returned thread when done.
+     * @return
+     */
     public Thread scan() {
         final boolean[] scan = {true};
 

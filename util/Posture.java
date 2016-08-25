@@ -1,7 +1,11 @@
 package de.dhbw.wwi13b.shared.util;
 
 /**
- * Created by j on 7/27/16.
+ * Posture enum for usage in PostureUtil
+ *
+ * @author Johannes Hertenstein
+ * @see PostureUtil
+ * @see WalkUtil
  */
 public enum Posture {
     CROUCH,
