@@ -3,8 +3,6 @@ package de.dhbw.wwi13b.shared.util;
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
 import com.aldebaran.qi.helper.proxies.ALMotion;
-import de.dhbw.wwi13b.shared.util.thread.Runnable;
-import de.dhbw.wwi13b.shared.util.thread.Thread;
 
 import java.util.HashMap;
 import java.util.Map;

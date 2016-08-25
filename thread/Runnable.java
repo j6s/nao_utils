@@ -1,4 +1,4 @@
-package de.dhbw.wwi13b.shared.util.thread;
+package de.dhbw.wwi13b.shared.thread;
 
 import com.aldebaran.qi.CallError;
 

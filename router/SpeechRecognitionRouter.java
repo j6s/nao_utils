@@ -1,6 +1,5 @@
-package de.dhbw.wwi13b.shared.util.router;
+package de.dhbw.wwi13b.shared.router;
 
-import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
 import de.dhbw.wwi13b.shared.util.Language;
 import de.dhbw.wwi13b.shared.util.SpeechUtil;

@@ -21,7 +21,7 @@ import java.util.function.Function;
  * For another layer of abstraction over Speech Recognition have a
  * look at the SpeechRecognitionRouter
  *
- * @see de.dhbw.wwi13b.shared.util.router.SpeechRecognitionRouter
+ * @see de.dhbw.wwi13b.shared.router.SpeechRecognitionRouter
  * @author Johannes Hertenstein
  */
 public class SpeechUtil {

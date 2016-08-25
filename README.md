@@ -26,7 +26,7 @@ submodule in `src/de/dhbw/wwi13b/shared`
 
 ## Utilities
 
-- [SpeechRecognitionRouter](util/router/SpeechRecognitionRouter.java)
+- [SpeechRecognitionRouter](router/SpeechRecognitionRouter.java)
 - [GrabUtils](util/GrabUtils.java)
 - [JointUtil](util/JointUtil.java)
 - [LandMarkTrackerUtil](util/LandMarkTrackerUtil.java)
