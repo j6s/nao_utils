@@ -17,6 +17,16 @@ public class GrabUtils {
         this.motion = new JointUtil(session);
     }
 
+    public void takeObject() throws Exception {
+        this.liftArms();
+        this.openHands();
+        Thread.sleep(500);
+
+        this.grabObject();
+        Thread.sleep(500);
+        this.liftObject();
+    }
+
     public void liftArms() throws Exception {
         /**
          * Left Arm
