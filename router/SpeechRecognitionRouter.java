@@ -125,7 +125,6 @@ public class SpeechRecognitionRouter {
     public void stopListening() {
         log("stopping to listen");
         this.recognitionThread.interrupt();
-        this.recognitionThread = null;
     }
 
 
