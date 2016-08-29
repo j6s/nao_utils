@@ -31,18 +31,20 @@ public class GrabUtils {
         /**
          * Left Arm
          */
-        motion.setAngle(Joint.LSHOULDERPITCH, 0);
-        motion.setAngle(Joint.LSHOULDERROLL, 0);
-        motion.setAngle(Joint.LELBOWYAW, -90);
-        motion.setAngle(Joint.LELBOWROLL, -20);
+        motion.setAngle(Joint.LSHOULDERPITCH, 25);
+        motion.setAngle(Joint.LSHOULDERROLL, 25);
+        motion.setAngle(Joint.LELBOWYAW, -30);
+        motion.setAngle(Joint.LELBOWROLL, -50);
+        motion.setAngle(Joint.LWRISTYAW, -60);
 
         /**
          * Right Arm
          */
-        motion.setAngle(Joint.RSHOULDERPITCH, 0);
-        motion.setAngle(Joint.RSHOULDERROLL, 0);
-        motion.setAngle(Joint.RELBOWYAW, 90);
-        motion.setAngle(Joint.RELBOWROLL, 20);
+        motion.setAngle(Joint.RSHOULDERPITCH, 25);
+        motion.setAngle(Joint.RSHOULDERROLL, -25);
+        motion.setAngle(Joint.RELBOWYAW, 30);
+        motion.setAngle(Joint.RELBOWROLL, 50);
+        motion.setAngle(Joint.RWRISTYAW, 60);
     }
 
     public void openHands() throws Exception {
@@ -57,8 +59,8 @@ public class GrabUtils {
         /**
          * Grab
          */
-        motion.setAngle(Joint.RSHOULDERROLL, 30);
-        motion.setAngle(Joint.LSHOULDERROLL, -30);
+        motion.setAngle(Joint.LSHOULDERROLL, 5);
+        motion.setAngle(Joint.RSHOULDERROLL, -5);
     }
 
     public void dropObject() throws Exception {
