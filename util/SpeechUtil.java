@@ -88,9 +88,12 @@ public class SpeechUtil {
         Thread thread = new Thread(() -> {
             try {
                 System.out.println("IN HERE");
+                //To avoid arm engine;
+                Thread.sleep( 2000);
                 speech.setWordListAsVocabulary(words);
                 speech.subscribe("BLA");
                 memory.subscribeToEvent("WordRecognized", o -> {
+                    System.out.println("Word Recognized");
                     ArrayList<Object> list = (ArrayList<Object>)o;
                     callback.apply((String)list.get(0));
                     System.out.println((String)list.get(0));
