@@ -24,6 +24,7 @@ public class LandMarkTrackerUtil {
 
     /**
      * Distance to the object
+     * Alternatively use -0.3f
      */
     private float distance = .2f;
 
@@ -73,9 +74,12 @@ public class LandMarkTrackerUtil {
      * @throws CallError
      */
     public void startTracking(List<Integer> landmarkIds, float landmarkSize) throws InterruptedException, CallError {
+        System.out.println("Start tracking landmark " + landmarkIds);
+        tracker.unregisterAllTargets();
         List<Object> mark = new ArrayList<>();
         mark.add(landmarkSize);
         mark.add(landmarkIds);
+        tracker.registerTarget("LandMark", mark);
 
         List<Float> position = new ArrayList<>();
         position.add(distance);
@@ -83,9 +87,11 @@ public class LandMarkTrackerUtil {
         position.add(0f);
         position.add(tolerance);
         position.add(tolerance);
+        position.add(tolerance);
 
-        tracker.removeAllTargets();
-        tracker.addTarget("LandMark", mark);
+        if(!tracker.isSearchEnabled()) {
+            tracker.toggleSearch(true);
+        }
         tracker.setMode("Move");
         tracker.setRelativePosition(position);
         tracker.track("LandMark");
