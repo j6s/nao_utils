@@ -1,5 +1,6 @@
 package de.dhbw.wwi13b.shared.router;
 
+import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
 import de.dhbw.wwi13b.shared.util.Language;
 import de.dhbw.wwi13b.shared.util.SpeechUtil;
@@ -84,9 +85,9 @@ public class SpeechRecognitionRouter {
      * The listening process will be restarted every once
      * in a while and will run until stopListening ist invoked
      */
-    public void startListening() {
+    public Thread startListening() {
         log("starting to listen");
-        int seconds = 30;
+        int seconds = 60;
         List<String> words = new ArrayList<>(callbacks.keySet());
 
         this.recognitionThread = speech.onSpeech(words, seconds, (word) -> {
@@ -95,6 +96,7 @@ public class SpeechRecognitionRouter {
             if (callback != null) {
                 log("Executing callback for word >>" + word + "<<");
                 callback.apply(word);
+                stopListening();
             } else {
                 log("No callback for word >>" + word + "<< found");
             }
@@ -102,7 +104,7 @@ public class SpeechRecognitionRouter {
         });
 
         // restart listening process after it stopped
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -116,7 +118,8 @@ public class SpeechRecognitionRouter {
                     e.printStackTrace();
                 }
             }
-        }).run();
+        }).run(); */
+        return this.recognitionThread;
     }
 
     /**
@@ -124,6 +127,15 @@ public class SpeechRecognitionRouter {
      */
     public void stopListening() {
         log("stopping to listen");
+        try {
+            speech.stop();
+        } catch (CallError callError) {
+            callError.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        this.recognitionThread.stop();
         this.recognitionThread.interrupt();
     }
 
