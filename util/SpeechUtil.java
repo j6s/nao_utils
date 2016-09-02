@@ -41,6 +41,8 @@ public class SpeechUtil {
      */
     protected Map<Language, String> mapping = new HashMap<>();
 
+    protected long eventId;
+
 
     public SpeechUtil(Session session) throws Exception {
         this.speech = new ALSpeechRecognition(session);
@@ -92,8 +94,7 @@ public class SpeechUtil {
                 Thread.sleep( 2000);
                 speech.setWordListAsVocabulary(words);
                 speech.subscribe("BLA");
-                memory.subscribeToEvent("WordRecognized", o -> {
-                    System.out.println("Word Recognized");
+                eventId = memory.subscribeToEvent("WordRecognized", o -> {
                     ArrayList<Object> list = (ArrayList<Object>)o;
                     callback.apply((String)list.get(0));
                     System.out.println((String)list.get(0));
@@ -107,6 +108,11 @@ public class SpeechUtil {
 
         thread.start();
         return thread;
+    }
+
+    public void stop() throws CallError, InterruptedException {
+        speech.unsubscribe("BLA");
+        memory.unsubscribeToEvent(eventId);
     }
 
 }
