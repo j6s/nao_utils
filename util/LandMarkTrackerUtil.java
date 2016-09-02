@@ -37,6 +37,8 @@ public class LandMarkTrackerUtil {
     public LandMarkTrackerUtil(Session session) throws Exception {
         this.session = session;
         this.tracker = new ALTracker(session);
+        this.tracker.removeAllTargets();
+        this.tracker.stopTracker();
     }
 
     /**
