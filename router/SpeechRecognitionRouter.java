@@ -95,8 +95,8 @@ public class SpeechRecognitionRouter {
             Function<String, Void> callback = callbacks.get(word);
             if (callback != null) {
                 log("Executing callback for word >>" + word + "<<");
-                callback.apply(word);
                 stopListening();
+                callback.apply(word);
             } else {
                 log("No callback for word >>" + word + "<< found");
             }
