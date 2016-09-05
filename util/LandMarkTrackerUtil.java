@@ -84,7 +84,7 @@ public class LandMarkTrackerUtil {
         tracker.registerTarget("LandMark", mark);
 
         List<Float> position = new ArrayList<>();
-        position.add(distance);
+        position.add(-1 * distance);
         position.add(0f);
         position.add(0f);
         position.add(tolerance);
@@ -137,12 +137,13 @@ public class LandMarkTrackerUtil {
         return position.get(0);
     }
 
-    public void waitUntilCloseEnough(float meters) throws InterruptedException, CallError {
+    public List<Float> waitUntilCloseEnough(float meters) throws InterruptedException, CallError {
         while (true) {
             if (getDistanceToObject() < meters) {
-                return;
+                return tracker.getTargetPosition();
             }
             Thread.sleep(50);
         }
     }
+
 }
