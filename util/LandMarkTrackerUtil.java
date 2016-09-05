@@ -128,4 +128,21 @@ public class LandMarkTrackerUtil {
     public void setTolerance(float tolerance) {
         this.tolerance = tolerance;
     }
+
+    public float getDistanceToObject() throws InterruptedException, CallError {
+        List<Float> position = tracker.getTargetPosition();
+        if (position.size() == 0) {
+            return Float.MAX_VALUE;
+        }
+        return position.get(0);
+    }
+
+    public void waitUntilCloseEnough(float meters) throws InterruptedException, CallError {
+        while (true) {
+            if (getDistanceToObject() < meters) {
+                return;
+            }
+            Thread.sleep(50);
+        }
+    }
 }
