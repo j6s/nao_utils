@@ -34,7 +34,7 @@ public class WalkUtil extends PostureUtil {
      */
     public void init() throws CallError, InterruptedException {
         super.init();
-        this.posture(Posture.STAND);
+        this.posture(Posture.STAND_INIT);
     }
 
     /**
