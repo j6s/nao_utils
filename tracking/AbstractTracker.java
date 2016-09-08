@@ -1,4 +1,4 @@
-package de.dhbw.wwi13b.shared.util;
+package de.dhbw.wwi13b.shared.tracking;
 
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by j on 8/24/16.
+ * Abstraction over ALTracker that allows easy tracking
  */
-public class LandMarkTrackerUtil {
+public abstract class AbstractTracker<T> {
 
     /**
      * Session of the current naoqi application
@@ -20,7 +20,7 @@ public class LandMarkTrackerUtil {
     /**
      * Instance of ALTracker that is used internalyl
      */
-    private ALTracker tracker;
+    protected ALTracker tracker;
 
     /**
      * Distance to the object
@@ -29,60 +29,20 @@ public class LandMarkTrackerUtil {
     private float distance = .2f;
 
     /**
-     * Tollerance when walking towards an object
+     * Tolerance when walking towards an object
      */
     private float tolerance = .03f;
 
-
-    public LandMarkTrackerUtil(Session session) throws Exception {
-        this.session = session;
+    public AbstractTracker(Session session) throws Exception {
         this.tracker = new ALTracker(session);
-        this.tracker.removeAllTargets();
-        this.tracker.stopTracker();
+        this.session = session;
     }
 
     /**
-     * Shorthand for tracking a single landmark. Uses the default size of 9cm
-     *
-     * @param landmarkId
-     * @throws InterruptedException
-     * @throws CallError
+     * Returns the list that is to be used with ALTracker#setRelativePosition
+     * @return
      */
-    public void startTracking(int landmarkId) throws InterruptedException, CallError {
-        List<Integer> ids = new ArrayList<>();
-        ids.add(landmarkId);
-        this.startTracking(ids);
-    }
-
-    /**
-     * Shorthand for landmark tracking. Uses a default size of 9cm
-     *
-     * @param landmarkIds
-     * @throws CallError
-     * @throws InterruptedException
-     */
-    public void startTracking(List<Integer> landmarkIds) throws CallError, InterruptedException {
-        this.startTracking(landmarkIds, .09f);
-    }
-
-    /**
-     * Starts tracking the given landmark ids with the given sizes
-     * Walks towards a landmark until it is within the distance that was
-     * configured.
-     *
-     * @param landmarkIds
-     * @param landmarkSize
-     * @throws InterruptedException
-     * @throws CallError
-     */
-    public void startTracking(List<Integer> landmarkIds, float landmarkSize) throws InterruptedException, CallError {
-        System.out.println("Start tracking landmark " + landmarkIds);
-        tracker.unregisterAllTargets();
-        List<Object> mark = new ArrayList<>();
-        mark.add(landmarkSize);
-        mark.add(landmarkIds);
-        tracker.registerTarget("LandMark", mark);
-
+    protected List<Float> getPositionList() {
         List<Float> position = new ArrayList<>();
         position.add(-1 * distance);
         position.add(0f);
@@ -90,15 +50,12 @@ public class LandMarkTrackerUtil {
         position.add(tolerance);
         position.add(tolerance);
         position.add(tolerance);
-
-        if(!tracker.isSearchEnabled()) {
-            tracker.toggleSearch(true);
-        }
-        tracker.setMode("Move");
-        tracker.setRelativePosition(position);
-        tracker.track("LandMark");
-
+        return position;
     }
+
+
+    public abstract void startTracking(T setting) throws InterruptedException, CallError;
+
 
     /**
      * Stops the tracking
@@ -145,5 +102,4 @@ public class LandMarkTrackerUtil {
             Thread.sleep(50);
         }
     }
-
 }
