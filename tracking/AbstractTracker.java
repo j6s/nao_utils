@@ -53,7 +53,13 @@ public abstract class AbstractTracker<T> {
         return position;
     }
 
-
+    /**
+     * Tracking method that is to be implemented by every concrete tracker
+     *
+     * @param setting
+     * @throws InterruptedException
+     * @throws CallError
+     */
     public abstract void startTracking(T setting) throws InterruptedException, CallError;
 
 
@@ -69,6 +75,45 @@ public abstract class AbstractTracker<T> {
         tracker.setEffector("None");
     }
 
+    /**
+     * Returns the distance to the object that is being tracked.
+     * If no object is currently being tracked Float.MAX_VALUE is being returned.
+     * Returning MAX_VALUE is done on purpose to make usage easier:
+     * This way a manual null check is not needed.
+     *
+     * @return
+     * @throws InterruptedException
+     * @throws CallError
+     */
+    public float getDistanceToObject() throws InterruptedException, CallError {
+        List<Float> position = tracker.getTargetPosition();
+        if (position.size() == 0) {
+            return Float.MAX_VALUE;
+        }
+        return position.get(0);
+    }
+
+    /**
+     * Blocks the current thread until the robot is within the given distance of the target.
+     *
+     * Warning: This will permanently block the thread, if the given distance is less than
+     * the distance that was used to start the tracker.
+     *
+     * @param meters
+     * @return
+     * @throws InterruptedException
+     * @throws CallError
+     */
+    public List<Float> waitUntilCloseEnough(float meters) throws InterruptedException, CallError {
+        while (true) {
+            if (getDistanceToObject() < meters) {
+                return tracker.getTargetPosition();
+            }
+            Thread.sleep(50);
+        }
+    }
+
+    // ===== GETTER & SETTER - self explanatory
 
     public float getDistance() {
         return distance;
@@ -86,20 +131,4 @@ public abstract class AbstractTracker<T> {
         this.tolerance = tolerance;
     }
 
-    public float getDistanceToObject() throws InterruptedException, CallError {
-        List<Float> position = tracker.getTargetPosition();
-        if (position.size() == 0) {
-            return Float.MAX_VALUE;
-        }
-        return position.get(0);
-    }
-
-    public List<Float> waitUntilCloseEnough(float meters) throws InterruptedException, CallError {
-        while (true) {
-            if (getDistanceToObject() < meters) {
-                return tracker.getTargetPosition();
-            }
-            Thread.sleep(50);
-        }
-    }
 }
