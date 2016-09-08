@@ -1,5 +1,7 @@
 package de.dhbw.wwi13b.shared.logging;
 
+import com.sun.deploy.util.StringUtils;
+
 /**
  * Simple logger inspired by the android Logger.
  * To improve clarity, the single character methods were replaced by
@@ -48,9 +50,12 @@ public class Log {
      */
     protected static int LEVEL = INFO;
 
+
     public static void setLogLevel(int level) {
         Log.LEVEL = level;
     }
+
+    protected static int MAX_TAG_LENGTH = 0;
 
     /**
      * Returns the logging prefix for a given log level
@@ -62,16 +67,16 @@ public class Log {
             case FATAL:
                 return "!!!!! [FATAL]";
             case ERROR:
-                return "!!! [ERROR]";
+                return "!!! [ERROR]  ";
             case WARN:
-                return "[WARN]";
+                return "[WARN]       ";
             case DEBUG:
-                return "[debug]";
+                return "[debug]      ";
             case INFO:
-                return "[info]";
+                return "[info]       ";
             case VERBOSE:
             default:
-                return "";
+                return "             ";
         }
     }
 
@@ -86,7 +91,14 @@ public class Log {
             return;
         }
 
-        String logMessage = System.currentTimeMillis() + " " + getPrefix(level) + " [" + tag + "] " + message;
+        if (tag.length() > MAX_TAG_LENGTH) {
+            MAX_TAG_LENGTH = tag.length();
+        }
+
+        // pad tag string
+        tag = String.format("%" + MAX_TAG_LENGTH + "s", tag);
+
+        String logMessage = System.currentTimeMillis() + " " + getPrefix(level)  + tag + " | " + message;
         switch(level) {
             case ERROR:
             case FATAL:
