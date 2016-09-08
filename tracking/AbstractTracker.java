@@ -81,35 +81,64 @@ public abstract class AbstractTracker<T> {
      * Returning MAX_VALUE is done on purpose to make usage easier:
      * This way a manual null check is not needed.
      *
+     * Also returns MAX_VALUE, if an error occured inside of the aldabaran SDK
+     *
      * @return
      * @throws InterruptedException
      * @throws CallError
      */
-    public float getDistanceToObject() throws InterruptedException, CallError {
-        List<Float> position = tracker.getTargetPosition();
-        if (position.size() == 0) {
+    public float getDistanceToObject() {
+        try {
+            List<Float> position = tracker.getTargetPosition();
+            if (position.size() == 0) {
+                return Float.MAX_VALUE;
+            }
+            return position.get(0);
+        } catch (Exception e) {
+            e.printStackTrace();
             return Float.MAX_VALUE;
         }
-        return position.get(0);
     }
 
     /**
      * Blocks the current thread until the robot is within the given distance of the target.
      *
-     * Warning: This will permanently block the thread, if the given distance is less than
-     * the distance that was used to start the tracker.
+     * Throws DistanceToCloseException, if the given distance is less than the distance, that was used
+     * to initialize the tracker: In this instance the method would block the current thread indefinitely
+     *
+     * Returns the distance List of the tracked object relative to the current position. [x, y, z]
+     * If no values are available returns the list [0,0,0]
+     *
+     * @see ALTracker#getTargetPosition()
+     *
      *
      * @param meters
      * @return
      * @throws InterruptedException
      * @throws CallError
      */
-    public List<Float> waitUntilCloseEnough(float meters) throws InterruptedException, CallError {
+    public List<Float> waitUntilCloseEnough(float meters) throws DistanceToCloseException {
+        if (meters < this.distance) {
+            throw new DistanceToCloseException("The given distance must be at least " + this.distance + " - " + meters + " given");
+        }
         while (true) {
             if (getDistanceToObject() < meters) {
-                return tracker.getTargetPosition();
+                List<Float> position = new ArrayList<>();
+                position.add(0f);
+                position.add(0f);
+                position.add(0f);
+                return position;
             }
-            Thread.sleep(50);
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                // Thread was interrupted: we do not need this method anymore
+                List<Float> position = new ArrayList<>();
+                position.add(0f);
+                position.add(0f);
+                position.add(0f);
+                return position;
+            }
         }
     }
 
