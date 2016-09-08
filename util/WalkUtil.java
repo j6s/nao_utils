@@ -3,6 +3,7 @@ package de.dhbw.wwi13b.shared.util;
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
 import com.aldebaran.qi.helper.proxies.ALMotion;
+import de.dhbw.wwi13b.shared.logging.Log;
 import de.dhbw.wwi13b.shared.thread.Runnable;
 import de.dhbw.wwi13b.shared.thread.Thread;
 
@@ -17,6 +18,8 @@ import java.util.List;
  * @author Johannes Hertenstein
  */
 public class WalkUtil extends PostureUtil {
+
+    protected static String TAG = "WalkUtil";
 
     /**
      * Motion instance
@@ -49,7 +52,7 @@ public class WalkUtil extends PostureUtil {
      */
     public void turnLeft(float degree) throws InterruptedException, CallError {
         float rad = MathUtil.deg2rad(degree);
-        log("turnLeft " + degree + "deg (" + rad + " rad)");
+        Log.debug(TAG, "turnLeft " + degree + "deg (" + rad + " rad)");
         this.motion.moveTo(0f, 0f, rad);
     }
 
@@ -60,6 +63,7 @@ public class WalkUtil extends PostureUtil {
      * @throws CallError
      */
     public void turnLeftSlow(int degree) throws InterruptedException, CallError {
+        Log.debug(TAG, "turnLeftSlow " + degree + "deg");
 
         // slight adjustment for to slow turning.
         // TODO remove this
@@ -83,9 +87,6 @@ public class WalkUtil extends PostureUtil {
             legs.add(leftLeg ? "LLeg" : "RLeg");
             leftLeg = !leftLeg;
         }
-
-        System.out.println(steps);
-        System.out.println(legs);
 
         this.motion.setFootStepsWithSpeed(legs, steps, s, false);
 
@@ -175,7 +176,6 @@ public class WalkUtil extends PostureUtil {
      * @param position
      */
     public void turnTowards(List<Float> position) throws CallError, InterruptedException {
-        log("turnTowards " + position);
         float deg = (float) Math.toDegrees(Math.atan(position.get(1) / position.get(0)));
         this.turnLeft(deg);
     }

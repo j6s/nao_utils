@@ -5,6 +5,7 @@ import com.aldebaran.qi.Session;
 import com.aldebaran.qi.helper.proxies.ALMotion;
 import com.aldebaran.qi.helper.proxies.ALRobotPosture;
 import com.aldebaran.qi.helper.proxies.ALTextToSpeech;
+import de.dhbw.wwi13b.shared.logging.Log;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +45,8 @@ public class PostureUtil {
      */
     protected ALTextToSpeech tts;
 
+    protected static String TAG = "PostureUtil";
+
 
     public PostureUtil(Session session) throws Exception {
         this.posture = new ALRobotPosture(session);
@@ -62,23 +65,15 @@ public class PostureUtil {
     }
 
     /**
-     * Logging for this class: Prepends class name
-     * @param message
-     */
-    protected void log(String message) {
-        System.out.println("PostureUtil: " + message);
-    }
-
-    /**
      * Initializes the posture: Waking up and settings stiffness
      * @throws InterruptedException
      * @throws CallError
      */
     public void init() throws InterruptedException, CallError {
-        this.log("waking up");
+        Log.debug(TAG, "init: waking up");
         this.motion.wakeUp();
 
-        this.log("settings stiffness");
+        Log.debug(TAG, "init: settings stiffness");
         this.motion.stiffnessInterpolation("Body", 1f, 1f);
     }
 
@@ -106,7 +101,7 @@ public class PostureUtil {
      * @throws CallError
      */
     public void goToPostureRaw(String posture) throws InterruptedException, CallError {
-        this.log("going to posture " + posture);
+        Log.debug(TAG, "going to posture " + posture);
         this.posture.stopMove();
         this.posture.goToPosture(posture, 1f);
     }
@@ -127,6 +122,7 @@ public class PostureUtil {
      * @throws CallError
      */
     public void rest() throws InterruptedException, CallError {
+        Log.debug(TAG, "going to rest posture");
         this.motion.rest();
     }
 

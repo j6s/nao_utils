@@ -89,7 +89,6 @@ public class SpeechUtil {
     public Thread onSpeech(List<String> words, int seconds, Function<String, Void> callback) {
         Thread thread = new Thread(() -> {
             try {
-                System.out.println("IN HERE");
                 //To avoid arm engine;
                 Thread.sleep( 2000);
                 speech.setWordListAsVocabulary(words);

@@ -2,11 +2,14 @@ package de.dhbw.wwi13b.shared.util;
 
 import com.aldebaran.qi.Session;
 import com.aldebaran.qi.helper.proxies.ALMotion;
+import de.dhbw.wwi13b.shared.logging.Log;
 
 /**
  * Created by maxdome on 8/4/16.
  */
 public class GrabUtils {
+
+    private static String TAG = "GrabUtils";
 
     /**
      * ALMotion service instance
@@ -18,6 +21,7 @@ public class GrabUtils {
     }
 
     public void takeObject() throws Exception {
+        Log.debug(TAG, "takeObject");
         this.liftArms();
         this.openHands();
         Thread.sleep(500);
@@ -28,6 +32,7 @@ public class GrabUtils {
     }
 
     public void holdObjectTight()throws Exception {
+        Log.debug(TAG, "holdObjectTight");
         /**
          * Left Arm
          */
@@ -49,6 +54,7 @@ public class GrabUtils {
     }
 
     public void liftArmsSideWays() throws Exception {
+        Log.debug(TAG, "liftArmsSideWays");
         /**
          * Left Arm
          */
@@ -64,6 +70,7 @@ public class GrabUtils {
     }
 
     public void liftArms() throws Exception {
+        Log.debug(TAG, "liftArms");
         /**
          * Left Arm
          */
@@ -88,6 +95,7 @@ public class GrabUtils {
     }
 
     public void openHands() throws Exception {
+        Log.debug(TAG, "openHands");
         /**
         * Openhands
         */
@@ -96,6 +104,7 @@ public class GrabUtils {
     }
 
     public void grabObject() throws Exception {
+        Log.debug(TAG, "grabObject");
         /**
          * Grab
          */
@@ -104,6 +113,7 @@ public class GrabUtils {
     }
 
     public void dropObject() throws Exception {
+        Log.debug(TAG, "dropObject");
         /**
          * dropObject
          */
@@ -111,7 +121,8 @@ public class GrabUtils {
         motion.setAngle(Joint.LSHOULDERROLL, 0);
     }
 
-    public void liftObject() throws Exception{
+    public void liftObject() throws Exception {
+        Log.debug(TAG, "liftObject");
         /**
          * lift grabed Object
          */
@@ -119,7 +130,9 @@ public class GrabUtils {
         motion.setAngle(Joint.LSHOULDERPITCH, -20);
     }
 
-    public void lowerObject() throws Exception{
+    public void lowerObject() throws Exception {
+        Log.debug(TAG, "lowerObject");
+
         /**
          * lift grabed Object
          */

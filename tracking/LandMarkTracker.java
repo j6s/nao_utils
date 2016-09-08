@@ -2,6 +2,7 @@ package de.dhbw.wwi13b.shared.tracking;
 
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
+import de.dhbw.wwi13b.shared.logging.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
  * Created by j on 9/8/16.
  */
 public class LandMarkTracker extends AbstractTracker<Integer> {
+
+    public static String TAG = "LandMarkTracker";
 
     public LandMarkTracker(Session session) throws Exception {
         super(session);
@@ -53,7 +56,7 @@ public class LandMarkTracker extends AbstractTracker<Integer> {
      * @throws CallError
      */
     public void startTracking(List<Integer> landmarkIds, float landmarkSize) throws InterruptedException, CallError {
-        System.out.println("Start tracking landmark " + landmarkIds);
+        Log.debug(TAG, "Start tracking landmark " + landmarkIds);
 
         tracker.unregisterAllTargets();
 

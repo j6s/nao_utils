@@ -1,7 +1,7 @@
 package de.dhbw.wwi13b.shared.util;
 
 /**
- * Created by j on 8/3/16.
+ * @deprecated
  */
 public class MathUtil {
 
@@ -9,6 +9,7 @@ public class MathUtil {
      * Converts a degree value to radian
      * @param deg
      * @return
+     * @deprecated use {@link Math#toRadians(double)}
      */
     public static float deg2rad(float deg) {
         return (float)(deg * (Math.PI / 180));
@@ -17,7 +18,8 @@ public class MathUtil {
     /**
      * Converts a radian value to degrees
      * @param rad
-     * @return 
+     * @return
+     * @deprecated use {@link Math#toDegrees(double)}
      */
     public static float rad2deg(float rad) {
         return (float)(rad * 180 / Math.PI);

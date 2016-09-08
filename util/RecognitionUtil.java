@@ -8,7 +8,7 @@ import com.aldebaran.qi.Session;
 import com.aldebaran.qi.helper.proxies.ALMemory;
 import com.aldebaran.qi.helper.proxies.ALTextToSpeech;
 import com.aldebaran.qi.helper.proxies.ALVisionRecognition;
-
+import de.dhbw.wwi13b.shared.logging.Log;
 
 
 import java.util.ArrayList;
@@ -18,6 +18,8 @@ import java.util.function.Function;
 
 
 public class RecognitionUtil {
+
+    protected static String TAG = "RecognitionUtil";
 
     /**
      * Speech instance
@@ -49,29 +51,28 @@ public class RecognitionUtil {
     public Thread onRecognizeLandmark(Function<LMCoords, Void> callback) {
         Thread thread = new Thread(() -> {
             try {
-                System.out.println("IN REC");
                 landmark.subscribe("iSub", 500, 0.0f);
 
                 memory.subscribeToEvent("LandmarkDetected", o -> {
                     ArrayList<Object> list = (ArrayList<Object>) o;
                     if (!list.isEmpty()) {
-                        System.out.println("has landmark ");
+                        Log.debug(TAG, "found landmark");
                         ArrayList<Object> item1 = (ArrayList<Object>) list.get(1);
 
                         LMCoords coords = LMCoords.fromLandmarkInfo(item1);
 
 
-                        System.out.println("root item:");
-                        System.out.println(item1.toString());
-                        System.out.println("coords (?): ");
-                        System.out.println(item1.get(0).toString());
+                        Log.debug(TAG, "root item:");
+                        Log.debug(TAG, item1.toString());
+                        Log.debug(TAG, "coords (?): ");
+                        Log.debug(TAG, item1.get(0).toString());
 
                         landmark.unsubscribe("iSub");
 
                         callback.apply(coords);
                         return;
                     } else {
-                     System.out.println("no landmark");
+                        Log.warn(TAG, "No landmark found");
                     }
                 });
                 //to keep thread alife

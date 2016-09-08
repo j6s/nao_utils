@@ -2,6 +2,7 @@ package de.dhbw.wwi13b.shared.tracking;
 
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
+import de.dhbw.wwi13b.shared.logging.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,8 @@ import java.util.List;
  * tracker.stop();
  */
 public class FaceTracker extends AbstractTracker<Float> {
+
+    public static String TAG = "FaceTracker";
 
     public FaceTracker(Session session) throws Exception {
         super(session);
@@ -44,7 +47,7 @@ public class FaceTracker extends AbstractTracker<Float> {
      */
     @Override
     public void startTracking(Float faceSize) throws InterruptedException, CallError {
-        System.out.println("Start tracking faces");
+        Log.debug(TAG, "Start tracking faces with size " + faceSize);
 
         tracker.unregisterAllTargets();
         tracker.registerTarget("Face", faceSize);

@@ -2,6 +2,7 @@ package de.dhbw.wwi13b.shared.router;
 
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
+import de.dhbw.wwi13b.shared.logging.Log;
 import de.dhbw.wwi13b.shared.util.Language;
 import de.dhbw.wwi13b.shared.util.SpeechUtil;
 
@@ -31,6 +32,8 @@ import java.util.function.Function;
  */
 public class SpeechRecognitionRouter {
 
+    private static String TAG = "SpeecRecognitionRouter";
+
     /**
      * Callbacks that are registered at the nao.
      * The funtions will be run, whenever that word will be
@@ -55,15 +58,7 @@ public class SpeechRecognitionRouter {
     public SpeechRecognitionRouter(Session session, Language language) throws Exception {
         this.speech = new SpeechUtil(session);
         this.speech.setLanguage(language);
-        this.log("New Router initialized");
-    }
-
-    /**
-     * Logs messages to the System with a prefix for this class
-     * @param message
-     */
-    private void log(String message) {
-        System.out.println("[SpeechRecognitionRouter] " + message);
+        Log.debug(TAG, "New Router initialized");
     }
 
     /**
@@ -72,7 +67,7 @@ public class SpeechRecognitionRouter {
      * @param callback
      */
     public void register(String word, Function<String, Void> callback) {
-        log("Word >>" + word + "<< registered");
+        Log.debug(TAG, "Word >>" + word + "<< registered");
         this.callbacks.put(word, callback);
         if (this.recognitionThread != null) {
             this.stopListening();
@@ -86,19 +81,19 @@ public class SpeechRecognitionRouter {
      * in a while and will run until stopListening ist invoked
      */
     public Thread startListening() {
-        log("starting to listen");
+        Log.info(TAG, "starting to listen");
         int seconds = 60;
         List<String> words = new ArrayList<>(callbacks.keySet());
 
         this.recognitionThread = speech.onSpeech(words, seconds, (word) -> {
-            log("Word >>" + word + "<< detected");
+            Log.debug(TAG, "Word >>" + word + "<< detected");
             Function<String, Void> callback = callbacks.get(word);
             if (callback != null) {
-                log("Executing callback for word >>" + word + "<<");
+                Log.info(TAG, "Executing callback for word >>" + word + "<<");
                 stopListening();
                 callback.apply(word);
             } else {
-                log("No callback for word >>" + word + "<< found");
+                Log.error(TAG, "No callback for word >>" + word + "<< found");
             }
             return null;
         });
@@ -126,7 +121,7 @@ public class SpeechRecognitionRouter {
      * Stops the listening process
      */
     public void stopListening() {
-        log("stopping to listen");
+        Log.info(TAG, "stopping to listen");
         try {
             speech.stop();
         } catch (CallError callError) {
