@@ -106,9 +106,6 @@ public abstract class AbstractTracker<T> {
      * Throws DistanceToCloseException, if the given distance is less than the distance, that was used
      * to initialize the tracker: In this instance the method would block the current thread indefinitely
      *
-     * Returns the distance List of the tracked object relative to the current position. [x, y, z]
-     * If no values are available returns the list [0,0,0]
-     *
      * @see ALTracker#getTargetPosition()
      *
      *
@@ -117,27 +114,31 @@ public abstract class AbstractTracker<T> {
      * @throws InterruptedException
      * @throws CallError
      */
-    public List<Float> waitUntilCloseEnough(float meters) throws DistanceToCloseException {
+    public void waitUntilCloseEnough(float meters, int timeoutSeconds) throws DistanceToCloseException {
+
+        long endTime = System.currentTimeMillis() + timeoutSeconds * 1000;
+
         if (meters < this.distance) {
             throw new DistanceToCloseException("The given distance must be at least " + this.distance + " - " + meters + " given");
         }
         while (true) {
+            // exit, if we are close enough
             if (getDistanceToObject() < meters) {
-                List<Float> position = new ArrayList<>();
-                position.add(0f);
-                position.add(0f);
-                position.add(0f);
-                return position;
+                return;
             }
+
+            // exit, if the timeout has been reached
+            if (System.currentTimeMillis() > endTime) {
+                return;
+            }
+
+            // sleep for 50ms then check again. If Thread was interrupted, then
+            // we don't need this anymore.
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 // Thread was interrupted: we do not need this method anymore
-                List<Float> position = new ArrayList<>();
-                position.add(0f);
-                position.add(0f);
-                position.add(0f);
-                return position;
+                return;
             }
         }
     }
