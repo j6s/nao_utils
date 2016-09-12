@@ -1,7 +1,5 @@
 package de.dhbw.wwi13b.shared.logging;
 
-import com.sun.deploy.util.StringUtils;
-
 /**
  * Simple logger inspired by the android Logger.
  * To improve clarity, the single character methods were replaced by
