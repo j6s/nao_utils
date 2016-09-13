@@ -99,7 +99,6 @@ public class SpeechUtil {
         Thread thread = new Thread(() -> {
             try {
                 //To avoid arm engine;
-                Thread.sleep( 2000);
                 speech.setWordListAsVocabulary(words);
                 speech.subscribe("BLA");
                 eventId = memory.subscribeToEvent("WordRecognized", o -> {
