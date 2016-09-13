@@ -75,14 +75,17 @@ public class SpeechRecognitionRouter {
         }
     }
 
+    public Thread startListening() throws InterruptedException, CallError {
+        return startListening(60);
+    }
+
     /**
      * Starts actively listening.
      * The listening process will be restarted every once
      * in a while and will run until stopListening ist invoked
      */
-    public Thread startListening() throws CallError, InterruptedException {
+    public Thread startListening(int seconds) throws CallError, InterruptedException {
         Log.info(TAG, "starting to listen");
-        int seconds = 60;
         List<String> words = new ArrayList<>(callbacks.keySet());
 
         this.recognitionThread = speech.onSpeech(words, seconds, (word) -> {
@@ -133,7 +136,5 @@ public class SpeechRecognitionRouter {
         this.recognitionThread.stop();
         this.recognitionThread.interrupt();
     }
-
-
 
 }
