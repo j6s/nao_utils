@@ -100,7 +100,7 @@ public abstract class AbstractTracker<T> {
             // The tracker can not possibly be closer than 10cm
             // This check has to made, because sometimes this method returns wrong / negative
             // values
-            if (position.get(0) <= 0.1) {
+            if (position.get(0) <= 0.25) {
                 return Float.MAX_VALUE;
             }
 
