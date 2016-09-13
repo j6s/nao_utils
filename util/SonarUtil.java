@@ -53,7 +53,4 @@ public class SonarUtil {
 
         return total / values.size();
     }
-
-
-
 }

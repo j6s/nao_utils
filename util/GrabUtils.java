@@ -20,6 +20,10 @@ public class GrabUtils {
         this.motion = new JointUtil(session);
     }
 
+    /**
+     * Grabs a light object with a width of 6.6 cm
+     * @throws Exception
+     */
     public void takeObject() throws Exception {
         Log.debug(TAG, "takeObject");
         this.liftArms();
@@ -31,6 +35,11 @@ public class GrabUtils {
         this.liftObject();
     }
 
+    /**
+     * Sets the angles of the arms to a tight position.
+     * The hands are narrow and close to the torso.
+     * @throws Exception
+     */
     public void holdObjectTight()throws Exception {
         Log.debug(TAG, "holdObjectTight");
         /**
@@ -53,6 +62,10 @@ public class GrabUtils {
 
     }
 
+    /**
+     * The hands are moved to the side and then up.
+     * @throws Exception
+     */
     public void liftArmsSideWays() throws Exception {
         Log.debug(TAG, "liftArmsSideWays");
         /**
@@ -69,6 +82,10 @@ public class GrabUtils {
 
     }
 
+    /**
+     * Lifts the arms up
+     * @throws Exception
+     */
     public void liftArms() throws Exception {
         Log.debug(TAG, "liftArms");
         /**
@@ -94,6 +111,11 @@ public class GrabUtils {
         this.openHands();
     }
 
+    /**
+     * Spreads his fingers as wide as possible.
+     * Arms won't be moved.
+     * @throws Exception
+     */
     public void openHands() throws Exception {
         Log.debug(TAG, "openHands");
         /**
@@ -103,6 +125,12 @@ public class GrabUtils {
         motion.setAngle(Joint.RHAND, 100);
     }
 
+    /**
+     * Grabs an object with the size of 6.6cms.
+     * Can't hold heavy objects.
+     * Be careful when grabbing far away from the body, Nao might fall.
+     * @throws Exception
+     */
     public void grabObject() throws Exception {
         Log.debug(TAG, "grabObject");
         /**
@@ -112,29 +140,43 @@ public class GrabUtils {
         motion.setAngle(Joint.RSHOULDERROLL, -4);
     }
 
+    /**
+     * Moves the hands away from each other.
+     * @throws Exception
+     */
     public void dropObject() throws Exception {
         Log.debug(TAG, "dropObject");
         /**
          * dropObject
          */
-        motion.setAngle(Joint.RSHOULDERROLL, 0);
-        motion.setAngle(Joint.LSHOULDERROLL, 0);
+        motion.setAngle(Joint.LSHOULDERROLL, -10);
+        motion.setAngle(Joint.RSHOULDERROLL, 10);
     }
 
+    /**
+     * Rotates arms up.
+     * Doesn't change the angle/distance between the arms.
+     * @throws Exception
+     */
     public void liftObject() throws Exception {
         Log.debug(TAG, "liftObject");
         /**
-         * lift grabed Object
+         * lift grabbed Object
          */
         motion.setAngle(Joint.RSHOULDERPITCH, -20);
         motion.setAngle(Joint.LSHOULDERPITCH, -20);
     }
 
+    /**
+     * Lowers the arms down.
+     * Doesn't change the angle/distance between the arms.
+     * @throws Exception
+     */
     public void lowerObject() throws Exception {
         Log.debug(TAG, "lowerObject");
 
         /**
-         * lift grabed Object
+         * lift grabbed Object
          */
         motion.setAngle(Joint.RSHOULDERPITCH, 0);
         motion.setAngle(Joint.LSHOULDERPITCH, 0);
