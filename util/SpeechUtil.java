@@ -2,6 +2,7 @@ package de.dhbw.wwi13b.shared.util;
 
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
+import com.aldebaran.qi.helper.proxies.ALAutonomousMoves;
 import com.aldebaran.qi.helper.proxies.ALMemory;
 import com.aldebaran.qi.helper.proxies.ALSpeechRecognition;
 
@@ -32,6 +33,11 @@ public class SpeechUtil {
     protected ALSpeechRecognition speech;
 
     /**
+     * Autonomous Moves instance
+     */
+    protected ALAutonomousMoves autonomMoves;
+
+    /**
      * Memory instance
      */
     protected ALMemory memory;
@@ -46,6 +52,7 @@ public class SpeechUtil {
 
     public SpeechUtil(Session session) throws Exception {
         this.speech = new ALSpeechRecognition(session);
+        this.autonomMoves = new ALAutonomousMoves(session);
         this.memory = new ALMemory(session);
 
         for(String language : this.speech.getAvailableLanguages()) {
@@ -74,19 +81,21 @@ public class SpeechUtil {
      * @param callback
      * @return
      */
-    public Thread onSpeech(List<String> words, Function<String, Void> callback) {
+    public Thread onSpeech(List<String> words, Function<String, Void> callback) throws CallError, InterruptedException {
         return this.onSpeech(words, 5, callback);
     }
 
     /**
      * Listens for a set list of words for a set amount of time.
      * Returns the Thread that was started for listening
+     * Disable Autonome Movement while Listening
      * @param words
      * @param seconds
      * @param callback
      * @return
      */
-    public Thread onSpeech(List<String> words, int seconds, Function<String, Void> callback) {
+    public Thread onSpeech(List<String> words, int seconds, Function<String, Void> callback) throws InterruptedException, CallError {
+        autonomMoves.setExpressiveListeningEnabled(false);
         Thread thread = new Thread(() -> {
             try {
                 //To avoid arm engine;
