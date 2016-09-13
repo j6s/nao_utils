@@ -3,6 +3,7 @@ package de.dhbw.wwi13b.shared.tracking;
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
 import de.dhbw.wwi13b.shared.logging.Log;
+import de.dhbw.wwi13b.shared.util.SonarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,11 @@ public class FaceTracker extends AbstractTracker<Float> {
 
     public static String TAG = "FaceTracker";
 
+    private SonarUtil sonar;
+
     public FaceTracker(Session session) throws Exception {
         super(session);
+        this.sonar = new SonarUtil(session);
     }
 
     /**
@@ -59,5 +63,19 @@ public class FaceTracker extends AbstractTracker<Float> {
         tracker.setMode("Move");
         tracker.setRelativePosition(getPositionList());
         tracker.track("Face");
+    }
+
+    @Override
+    public float getDistanceToObject() {
+        float distance = 0;
+        try {
+            distance = sonar.getDistancesMean();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (distance > 2) {
+            return Float.MAX_VALUE;
+        }
+        return distance;
     }
 }
