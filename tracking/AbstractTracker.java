@@ -2,7 +2,9 @@ package de.dhbw.wwi13b.shared.tracking;
 
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.Session;
+import com.aldebaran.qi.helper.proxies.ALSonar;
 import com.aldebaran.qi.helper.proxies.ALTracker;
+import de.dhbw.wwi13b.shared.util.SonarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,10 +91,20 @@ public abstract class AbstractTracker<T> {
      */
     public float getDistanceToObject() {
         try {
-            List<Float> position = tracker.getTargetPosition();
+            // 0 = FRAME_TORSO
+            List<Float> position = tracker.getTargetPosition(0);
             if (position.size() == 0) {
                 return Float.MAX_VALUE;
             }
+
+            // The tracker can not possibly be closer than 10cm
+            // This check has to made, because sometimes this method returns wrong / negative
+            // values
+            if (position.get(0) <= 0.1) {
+                return Float.MAX_VALUE;
+            }
+
+            System.out.println(position);
             return position.get(0);
         } catch (Exception e) {
             e.printStackTrace();

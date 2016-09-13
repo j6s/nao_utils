@@ -34,7 +34,7 @@ public class FaceTracker extends AbstractTracker<Float> {
      * @throws InterruptedException
      */
     public void startTracking() throws CallError, InterruptedException {
-        this.startTracking(.15f);
+        this.startTracking(.1f);
     }
 
     /**

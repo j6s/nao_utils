@@ -66,7 +66,7 @@ public class SpeechRecognitionRouter {
      * @param word
      * @param callback
      */
-    public void register(String word, Function<String, Void> callback) {
+    public void register(String word, Function<String, Void> callback) throws InterruptedException, CallError {
         Log.debug(TAG, "Word >>" + word + "<< registered");
         this.callbacks.put(word, callback);
         if (this.recognitionThread != null) {
@@ -80,7 +80,7 @@ public class SpeechRecognitionRouter {
      * The listening process will be restarted every once
      * in a while and will run until stopListening ist invoked
      */
-    public Thread startListening() {
+    public Thread startListening() throws CallError, InterruptedException {
         Log.info(TAG, "starting to listen");
         int seconds = 60;
         List<String> words = new ArrayList<>(callbacks.keySet());

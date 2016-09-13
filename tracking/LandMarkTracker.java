@@ -73,4 +73,6 @@ public class LandMarkTracker extends AbstractTracker<Integer> {
         tracker.setRelativePosition(getPositionList());
         tracker.track("LandMark");
     }
+
+
 }
